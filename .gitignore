@@ -7,3 +7,6 @@ venv/
 # archivos de cache de python
 __pycache__/
 *.pyc
+
+# archivos de logs
+log.txt
