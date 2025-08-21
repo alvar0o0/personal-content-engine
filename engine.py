@@ -11,30 +11,37 @@ genai.configure(api_key=API_KEY)
 model = genai.GenerativeModel('gemini-1.5-flash-latest')
 
 def build_prompt(raw_log):
-    """Construye el prompt estratégico para la IA."""
+    """Construye el prompt para que la IA extraiga los 3 puntos clave."""
     
     prompt = f"""
-    Actúa como mi editor de redes sociales y socio estratégico. Tu estilo es el de un 'indie hacker' experto, directo y cercano.
-    Tu misión es transformar mi log diario en contenido de valor para mis redes sociales, ayudándome a construir mi marca personal en público.
+    Actúa como mi socio estratégico para mi #buildinpublic. Tu estilo debe ser 'hacker/dev': conciso, directo al grano, técnico pero claro.
 
-    Este es mi log de hoy, mi "fuente de la verdad". No inventes nada que no esté aquí:
+    Voy a pasarte mi "brain dump" del día en prosa. Tu misión es leerlo, entenderlo y extraer los 3 puntos más importantes para transformarlos en un único tweet en inglés.
+
+    Los 3 puntos que extraigas deben idealmente ser:
+    1. Un avance o logro concreto.
+    2. Un problema, bloqueo o reto que enfrenté.
+    3. Un aprendizaje, insight o lección clave.
+
+    Este es mi "brain dump":
     ---
     {raw_log}
     ---
 
-    Ahora, genera dos borradores de contenido en inglés, siguiendo estas instrucciones:
+    Ahora, genera el tweet usando esta plantilla EXACTA:
+    [TEMA #DÍA]: <Crea un título conciso basado en el texto>
 
-    1.  **BORRADOR PARA TWITTER (Mi "Taller"):**
-        -   **Estilo:** Informal, técnico, directo. Como si le hablara a otro desarrollador.
-        -   **Contenido:** Debe reflejar la lucha y la victoria/aprendizaje del día.
-        -   **Formato:** Corto, conciso, idealmente un solo tweet.
-        -   **Hashtags:** Incluye 2-3 hashtags relevantes como #buildinpublic, #Python, #AI, #DataScience.
+    → <El avance o logro que extrajiste>
+    → <El problema o reto que extrajiste>
+    → <El aprendizaje o insight que extrajiste>
 
-    2.  **BORRADOR PARA LINKEDIN (Mi "Galería"):**
-        -   **Estilo:** Profesional pero auténtico. Evita el "cringe" corporativo.
-        -   **Contenido:** Enfócate en el aprendizaje estratégico y la implicación de negocio. Enmárcalo como desarrollo de habilidades valiosas.
-        -   **Formato:** Un post corto estructurado (ej. Problema -> Proceso -> Lección).
-        -   **Hashtags:** Incluye 2-3 hashtags profesionales como #ProfessionalDevelopment, #MachineLearning, #FinanceTechnology.
+    #buildinpublic
+
+    **REGLAS IMPORTANTES:**
+    - No añadas ningún comentario extra. Solo el tweet.
+    - El número del día no lo sabes, así que déjalo como '#DÍA' para que yo lo reemplace.
+    - El TEMA tampoco lo sabes, déjalo como 'TEMA' para que yo lo reemplace.
+    - Sé súper conciso y usa el tono del texto original.
     """
     return prompt
 
