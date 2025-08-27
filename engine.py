@@ -60,10 +60,7 @@ def main():
         response = model.generate_content(prompt_final)
 
         # Imprimir la respuesta de forma clara
-        print("--- ✅ Contenido Generado ---")
-        print(response.text)
-        print("----------------------------")
-        print("Copia, edita y publica. ¡Buen trabajo!")
+        print(response.text.strip())
 
     except FileNotFoundError:
         print("Error: No se encontró el archivo 'log.txt'. Créalo y añade tu log.")

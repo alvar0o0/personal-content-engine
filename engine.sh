@@ -1,28 +1,24 @@
 #!/bin/bash
 
-# --- Tu Motor de Contenido Diario v0.2 ---
+# --- Tu Motor de Contenido Diario v0.5 ---
+TWEET_GENERADO=$(python3 engine.py)
 
-echo "⚙️  Generando tweet del día..."
+if [ -z "$TWEET_GENERADO" ]; then
+  echo "⚠️  el scrip de python generó ningún tweet. no se archivará nada"
+  exit 1
+fi
 
-# 1. Ejecuta el script de Python para generar el tweet y lo guarda en una variable
-TWEET_GENERATED=$(python engine.py)
+echo "--- TWEET GENERADO---"
+echo "$TWEET_GENERADO"
+echo "----------------------"
 
-# muestra el tweet en el terminal
-echo "--- 🐦 TWEET GENERADO ---"
-echo "$TWEET_GENERATED"
-echo "-------------------------------------"
-
-
-echo "💾  Archivando log en el registro semanal..."
-
-# 2. Archiva el log.txt en weekly_log.md con fecha y un separador y el tweet generado en weekly_log.md
+echo "archivando en el registro semanal..."
 FECHA_ACTUAL=$(date +%Y-%m-%d)
-echo "## 🪵  LOG: $FECHA_ACTUAL" >> weekly_log.md
+echo "## LOG: $FECHA_ACTUAL" >> weekly_log.md
 cat log.txt >> weekly_log.md
-echo "" >> weekly_log.md
-echo "### 🐦 Tweet Publicado:" >> weekly_log.md
-echo "> $TWEET_GENERADO" >> weekly_log.md # Usamos '>' para formato de cita en Markdown
+echo "TWEET PUBLICADO:" >> weekly_log.md
+echo "$TWEET_GENERADO" | sed 's/^/> /' >> weekly_log.md
 echo "" >> weekly_log.md
 echo "---" >> weekly_log.md
 
-echo "✅  ¡Listo! Tu tweet está generado y todo ha sido archivado."
+echo "-PROCESO COMPLETO-"
